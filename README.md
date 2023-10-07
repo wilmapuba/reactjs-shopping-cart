@@ -1,4 +1,4 @@
-# Workshop - Hands On - Understanding Containers
+# Workshop - Hands On - Understanding Containers_1
 
 Example of how to run containers from scratch, using a simple app implemented by Kris Urbas in react.js and redux.js
 
