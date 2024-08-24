@@ -1,23 +1,23 @@
 # SonarCloud
 # Análisis de código fuente con SonarCloud
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-trigger:
-- master
+trigger: none # Disable CI triggers.
+#- master
 
 resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: '26a65500-b05f-4a4c-a7dd-73a9e7a59dcb'
-  imageRepository: 'malevarrokart'
-  containerRegistryn: 'myacr21942.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
+# a regular variable
+- name: dockerfilePath
+  value: '$(Build.SourcesDirectory)/Dockerfile'
+- name: tag
+  value: 'latest'
+- name: vmImageName
+  value: 'ubuntu-latest'
+# a variable group
+- group: Mis_Variables
 
-pool:
-  vmImage: $(vmImageName)
 
 stages:
   - stage: CodeSecurityScan
@@ -32,7 +32,7 @@ stages:
           fetchDepth: 0
         - task: SonarCloudPrepare@1
           inputs:
-            SonarCloud: 'SonarCloud'
+            SonarCloud: '$(SonarCloud_Conn)'
             organization: 'malevarro-devsecops'
             scannerMode: 'CLI'
             configMode: 'manual'
