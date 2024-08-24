@@ -34,7 +34,7 @@ stages:
           inputs:
             containerRegistry: $(ACR_Conn)
             command: 'login'
-        
+
         - task: trivy@1
           inputs:
             version: 'latest'
