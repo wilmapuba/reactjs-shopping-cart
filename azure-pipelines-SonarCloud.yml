@@ -32,11 +32,11 @@ stages:
           fetchDepth: 0
         - task: SonarCloudPrepare@1
           inputs:
-            SonarCloud: '$(SonarCloud_Conn)'
-            organization: 'malevarro-devsecops'
+            SonarCloud: 'SonarCloud_Malevarro'
+            organization: 'malevarro'
             scannerMode: 'CLI'
             configMode: 'manual'
-            cliProjectKey: 'malevarro_reactjs-shopping-cart2'
+            cliProjectKey: 'malevarro_reactjs-shopping-cart'
             cliProjectName: 'reactjs-shopping-cart'
             cliSources: '.'
         - task: SonarCloudAnalyze@1
