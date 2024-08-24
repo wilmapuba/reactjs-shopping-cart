@@ -9,14 +9,15 @@ resources:
 - repo: self
 
 variables:
- - name: dockerfilePath
-   value:'$(Build.SourcesDirectory)/Dockerfile'
- - name: tag
-   value: '$(Build.BuildId)'
- - name: vmImageName
-   value: 'ubuntu-latest'
- # a variable group
- - group: Mis_Variables
+# a regular variable
+- name: dockerfilePath
+  value: '$(Build.SourcesDirectory)/Dockerfile'
+- name: tag
+  value: '$(Build.BuildId)'
+- name: vmImageName
+  value: 'ubuntu-latest'
+# a variable group
+- group: Mis_Variables
 
 stages:
 - stage: Build
