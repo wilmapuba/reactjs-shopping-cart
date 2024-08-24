@@ -12,7 +12,7 @@ variables:
   imageRepository: 'malevarrokart'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
-  - group: Release
+  -group: Release
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -32,7 +32,7 @@ stages:
         command: buildAndPush
         repository: $(WEBAPP_NAME)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: 'Container Registry Connection'
         tags: |
           $(tag)
 - stage: DeployWebApp
