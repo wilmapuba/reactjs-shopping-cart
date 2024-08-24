@@ -36,7 +36,7 @@ stages:
           inputs:
             serviceConnectionEndpoint: $(Snyk_Conn)
             testType: 'container'
-            dockerImageName: $(ACR_NAME)/$(WEBAPP_NAME)
+            dockerImageName: $(WEBAPP_NAME)
             dockerfilePath: '$(dockerfilePath)'
             monitorWhen: 'always'
             failOnIssues: false
