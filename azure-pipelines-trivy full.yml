@@ -16,6 +16,8 @@ variables:
   value: 'latest'
 - name: vmImageName
   value: 'ubuntu-latest'
+- name: sariflog
+  value: 'ImageAnalysisLogs'
 # a variable group
 - group: Mis_Variables
 
@@ -45,9 +47,9 @@ stages:
             script: |
               # Write your commands here
               mkdir $(sariflog)
-              export TRIVY_AUTH_URL=$(URL)
-              export TRIVY_USERNAME=$(USERNAME)
-              export TRIVY_PASSWORD=$(PASSWORD)
+              export TRIVY_AUTH_URL=$(ACR_NAME)
+              export TRIVY_USERNAME=$(ACR_USERNAME)
+              export TRIVY_PASSWORD=$(ACR_PWD)
               echo "[+] Fetching Trivy"
               export TRIVYVERSION=$(git ls-remote --refs --sort="version:refname" --tags https://github.com/aquasecurity/trivy | cut -d/ -f3-|tail -n1 | sed -e 's/^.//')
               echo "[+] Trivy Version:" ${TRIVYVERSION}
