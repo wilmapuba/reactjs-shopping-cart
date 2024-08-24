@@ -16,7 +16,7 @@ variables:
 - name: vmImageName
   value: 'ubuntu-latest'
 # a variable group
-- group: Mis_Variables
+- group: Mis_VariablesLab
 
 stages:
 - stage: Build
