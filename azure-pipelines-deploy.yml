@@ -10,11 +10,12 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '26a65500-b05f-4a4c-a7dd-73a9e7a59dcb'
+  # dockerRegistryServiceConnection: '26a65500-b05f-4a4c-a7dd-73a9e7a59dcb'
   imageRepository: 'malevarrokart'
-  containerRegistry: 'myacr21942.azurecr.io'
+  # containerRegistry: 'myacr21942.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: 'latest'
+  tag: '$(Build.BuildId)'
+  - group: Release
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -32,7 +33,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: $(WEBAPP_NAME)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
@@ -51,9 +52,9 @@ stages:
         ConnectionType: 'AzureRM'
         azureSubscription: 'AzureVS'
         appType: 'webAppContainer'
-        WebAppName: 'myk8srun-21942'
-        DockerNamespace: '$(containerRegistry)'
-        DockerRepository: '$(imageRepository)'
+        WebAppName: $(WEBAPP_NAME)
+        DockerNamespace: '$(ACR_NAME)'
+        DockerRepository: '$(WEBAPP_NAME)'
         DockerImageTag: '$(tag)'
         AppSettings: '-port 3000'
     - task: AzureAppServiceManage@0
@@ -61,4 +62,4 @@ stages:
       inputs:
         azureSubscription: 'AzureVS'
         Action: 'Restart Azure App Service'
-        WebAppName: 'myk8srun-21942'
+        WebAppName: $(WEBAPP_NAME)
