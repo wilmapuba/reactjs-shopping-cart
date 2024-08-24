@@ -12,7 +12,7 @@ variables:
 - name: dockerfilePath
   value: '$(Build.SourcesDirectory)/Dockerfile'
 - name: tag
-  value: '$(Build.BuildId)'
+  value: 'latest'
 - name: vmImageName
   value: 'ubuntu-latest'
 # a variable group
