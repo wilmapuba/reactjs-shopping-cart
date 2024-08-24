@@ -2,23 +2,22 @@
 # Análisis profundo de un contenedor con la herramienta de Trivy
 # 
 
-trigger:
-- master
+trigger: none # Disable CI triggers.
+#- master
 
 resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: '26a65500-b05f-4a4c-a7dd-73a9e7a59dcb'
-  imageRepository: 'malevarrokart'
-  containerRegistryn: 'myacr21942.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
-  sariflog: 'CodeAnalysisLogs'
-
-pool:
-  vmImage: $(vmImageName)
+# a regular variable
+- name: dockerfilePath
+  value: '$(Build.SourcesDirectory)/Dockerfile'
+- name: tag
+  value: 'latest'
+- name: vmImageName
+  value: 'ubuntu-latest'
+# a variable group
+- group: Mis_Variables
 
 stages:
   - stage: SecurityScan
@@ -31,14 +30,14 @@ stages:
         steps:
         - task: Docker@2
           inputs:
-            containerRegistry: 'myacr21942'
+            containerRegistry: $(ACR_Conn)
             command: 'login'
         - task: trivy@1
           inputs:
             version: 'latest'
             docker: false
             exitCode: 0
-            image: $(containerRegistryn)/$(imageRepository)
+            image: $(ACR_NAME)/$(WEBAPP_NAME):latest
             debug: true
         - task: Bash@3
           inputs:
